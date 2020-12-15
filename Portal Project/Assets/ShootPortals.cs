@@ -18,15 +18,13 @@ public class ShootPortals : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Left click");
             portalShoot(Portal_1);
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Right click");
             portalShoot(Portal_2);
         }
     }
@@ -40,9 +38,10 @@ public class ShootPortals : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit))
         {
-            Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal);
+            Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal); 
             portal.transform.position = hit.point;
             portal.transform.rotation = hitObjectRotation;
+            //portal.transform.rotation = new Quaternion(0,90,180,0);
         }
     }
 }
