@@ -6,21 +6,12 @@ public class PortalTeleportation : MonoBehaviour
 {
     public GameObject otherPortal;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            other.transform.position = otherPortal.transform.position + other.transform.forward * 1;
+            other.transform.position = otherPortal.transform.position + otherPortal.transform.forward * 2.0f;
+            other.transform.rotation = otherPortal.transform.rotation;
         }
     }
 }

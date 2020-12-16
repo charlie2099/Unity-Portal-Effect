@@ -4,44 +4,45 @@ using UnityEngine;
 
 public class ShootPortals : MonoBehaviour
 {
-    public GameObject Portal_1;
-    public GameObject Portal_2;
+    public GameObject first_portal;
+    public GameObject second_portal;
+    GameObject player_camera;
 
-    GameObject mainCamera;
+    Quaternion offset = Quaternion.Euler(0, 0, 0);
 
-    // Start is called before the first frame update
+    const int LEFT_CLICK = 0;
+    const int RIGHT_CLICK = 1;
+
     void Start()
     {
-        mainCamera = GameObject.FindWithTag("MainCamera");
+        player_camera = GameObject.FindWithTag("MainCamera");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(LEFT_CLICK))
         {
-            portalShoot(Portal_1);
+            shootPortal(first_portal);
         }
 
-        if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(RIGHT_CLICK))
         {
-            portalShoot(Portal_2);
+            shootPortal(second_portal);
         }
     }
 
-    void portalShoot(GameObject portal)
+    void shootPortal(GameObject portal)
     {
-        int x = Screen.width / 2;
-        int y = Screen.height / 2;
-        Ray ray = mainCamera.GetComponent<Camera>().ScreenPointToRay(new Vector3(x,y));
+        int center_x = Screen.width / 2;
+        int center_y = Screen.height / 2;
+        Ray ray = player_camera.GetComponent<Camera>().ScreenPointToRay(new Vector3(center_x,center_y));
         RaycastHit hit;
 
         if(Physics.Raycast(ray, out hit))
         {
-            Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal); 
+            Quaternion rotationOfHitObject = Quaternion.LookRotation(hit.normal); 
             portal.transform.position = hit.point;
-            portal.transform.rotation = hitObjectRotation;
-            //portal.transform.rotation = new Quaternion(0,90,180,0);
+            portal.transform.rotation = rotationOfHitObject;
         }
     }
 }

@@ -8,8 +8,8 @@ public class FirstPersonMovement : MonoBehaviour
 
     void Update()
     {
-        velocity.y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         velocity.x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        velocity.y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         transform.Translate(velocity.x, 0, velocity.y);
     }
 }

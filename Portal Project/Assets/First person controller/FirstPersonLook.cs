@@ -2,18 +2,9 @@
 
 public class FirstPersonLook : MonoBehaviour
 {
-    [SerializeField]
-    Transform character;
-    Vector2 currentMouseLook;
-    Vector2 appliedMouseDelta;
-    public float sensitivity = 1;
-    public float smoothing = 2;
-
-
-    void Reset()
-    {
-        character = GetComponentInParent<FirstPersonMovement>().transform;
-    }
+    public float MouseSensitivity = 100f;
+    public Transform PlayerBody;
+    float x_rotation = 0f;
 
     void Start()
     {
@@ -22,14 +13,13 @@ public class FirstPersonLook : MonoBehaviour
 
     void Update()
     {
-        // Get smooth mouse look.
-        Vector2 smoothMouseDelta = Vector2.Scale(new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), Vector2.one * sensitivity * smoothing);
-        appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, smoothMouseDelta, 1 / smoothing);
-        currentMouseLook += appliedMouseDelta;
-        currentMouseLook.y = Mathf.Clamp(currentMouseLook.y, -90, 90);
+        float mouse_x = Input.GetAxis("Mouse X") * MouseSensitivity * Time.deltaTime;
+        float mouse_y = Input.GetAxis("Mouse Y") * MouseSensitivity * Time.deltaTime;
 
-        // Rotate camera and controller.
-        transform.localRotation = Quaternion.AngleAxis(-currentMouseLook.y, Vector3.right);
-        character.localRotation = Quaternion.AngleAxis(currentMouseLook.x, Vector3.up);
+        x_rotation -= mouse_y;
+        x_rotation = Mathf.Clamp(x_rotation, -90f, 90f);
+
+        transform.localRotation = Quaternion.Euler(x_rotation, 0f, 0f);
+        PlayerBody.Rotate(Vector3.up * mouse_x);
     }
 }
