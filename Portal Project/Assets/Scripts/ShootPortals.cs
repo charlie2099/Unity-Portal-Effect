@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ShootPortals : MonoBehaviour
 {
+    // takes a reference to the two portal gameobjects
     public GameObject first_portal;
     public GameObject second_portal;
     GameObject player_camera;
-
-    Quaternion offset = Quaternion.Euler(0, 0, 0);
 
     const int LEFT_CLICK = 0;
     const int RIGHT_CLICK = 1;
@@ -40,7 +39,7 @@ public class ShootPortals : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit))
         {
-            Quaternion rotationOfHitObject = Quaternion.LookRotation(hit.normal); 
+            Quaternion rotationOfHitObject = Quaternion.LookRotation(hit.normal);
             portal.transform.position = hit.point;
             portal.transform.rotation = rotationOfHitObject;
         }

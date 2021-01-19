@@ -5,30 +5,27 @@ using UnityEngine;
 public class PortalTeleporter : MonoBehaviour
 {
     public Transform player;
-    public Transform receiver;
+    public Transform other_portal;
+    private bool playerColliding = false;
 
-    private bool playerIsOverLapping = false;
-
-    // Update is called once per frame
     void Update()
     {
-        if(playerIsOverLapping)
+        if(playerColliding)
         {
             Vector3 portalToPlayer = player.position - transform.position;
-            float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
+            float playerMoved = Vector3.Dot(transform.up, portalToPlayer);
 
-            // If this true: The player has moved accross the portal
-            if(dotProduct < 0f)
+            // If true the player has moved across the portal
+            if(playerMoved < 0f) // uses cos angle to determine a collision, and a crossover to the other portal
             {
-                // Teleport him!
-                float rotationDiff = Quaternion.Angle(transform.rotation, receiver.rotation);
-                rotationDiff += 180;
-                player.Rotate(Vector3.up, rotationDiff);
+                float rotation_difference = Quaternion.Angle(transform.rotation, other_portal.rotation);
+                rotation_difference += 180;
+                player.Rotate(Vector3.up, rotation_difference);
 
-                Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
-                player.position = receiver.position + positionOffset;
+                Vector3 offset = Quaternion.Euler(0f, rotation_difference, 0f) * portalToPlayer;
+                player.position = other_portal.position + offset;
 
-                playerIsOverLapping = false;
+                playerColliding = false;
             }
         }
     }
@@ -37,7 +34,7 @@ public class PortalTeleporter : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            playerIsOverLapping = true;
+            playerColliding = true;
         }
     }
 
@@ -45,7 +42,7 @@ public class PortalTeleporter : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            playerIsOverLapping = false;
+            playerColliding = false;
         }
     }
 }

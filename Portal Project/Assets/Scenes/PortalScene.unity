@@ -4079,7 +4079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4207292061130026}
-  receiver: {fileID: 809035529}
+  other_portal: {fileID: 809035529}
 --- !u!1 &587574789
 GameObject:
   m_ObjectHideFlags: 0
@@ -4094,7 +4094,7 @@ GameObject:
   - component: {fileID: 587574790}
   - component: {fileID: 587574794}
   m_Layer: 2
-  m_Name: RightPortal
+  m_Name: portalTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4190,6 +4190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherPortal: {fileID: 648082762}
+  spawnOffset: 2
 --- !u!1 &648082762
 GameObject:
   m_ObjectHideFlags: 0
@@ -4204,7 +4205,7 @@ GameObject:
   - component: {fileID: 648082763}
   - component: {fileID: 648082767}
   m_Layer: 2
-  m_Name: LeftPortal
+  m_Name: portalOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4300,6 +4301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherPortal: {fileID: 587574789}
+  spawnOffset: 2
 --- !u!1 &789096849
 GameObject:
   m_ObjectHideFlags: 0
@@ -4441,7 +4443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4207292061130026}
-  receiver: {fileID: 579107001}
+  other_portal: {fileID: 579107001}
 --- !u!65 &809035531
 BoxCollider:
   m_ObjectHideFlags: 0
